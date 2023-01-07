@@ -16,17 +16,24 @@
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
-   desc "Increment the version from the latest relase"
+   desc "Runs all the tests"
+
+   desc "Increment the version from the latest firebase release"
    lane :increment_firebase_version do
     latest_release = firebase_app_distribution_get_latest_release(
       app: "1:106550536020:android:93bb409a8eb28585774ac1"
     )
     increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
   end
+
+  desc "Increment the version from the latest playstore release - In progress"
+   lane :increment_playstore_version do
+    latest_release = google_play_track_version_codes(
+      app: "{id}"
+    )
+    increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
+  end
+
   desc "Submit a new Beta Build to firebase distribution"
   lane :beta do
     gradle(task: "clean")
@@ -41,9 +48,12 @@ platform :android do
             )
   end
 
-  desc "Deploy a new version to the Google Play"
+  desc "Deploy a new version to the Google Play - In progress"
   lane :deploy do
-    gradle(task: "clean assembleRelease")
+    gradle(task: "clean")
+    increment_playstore_version
+    gradle(task: "assemble", build_type: "Release")
     upload_to_play_store
   end
+
 end
