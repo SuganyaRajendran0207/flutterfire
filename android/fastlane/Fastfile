@@ -18,7 +18,7 @@ default_platform(:android)
 platform :android do
    desc "Runs all the tests"
 
-   desc "Increment the version from the latest firebase release"
+   desc "Increment the version from the latest firebase release- command fastlane add_plugin increment_version_code"
    lane :increment_firebase_version do
     latest_release = firebase_app_distribution_get_latest_release(
       app: "1:106550536020:android:93bb409a8eb28585774ac1"
@@ -34,7 +34,7 @@ platform :android do
     increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
   end
 
-  desc "Submit a new Beta Build to firebase distribution"
+  desc "Submit a new Beta Build to firebase distribution - command fastlane add_plugin firebase_app_distribution"
   lane :beta do
     gradle(task: "clean")
     increment_firebase_version

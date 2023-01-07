@@ -15,21 +15,23 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android test
-
-```sh
-[bundle exec] fastlane android test
-```
-
-Runs all the tests
-
 ### android increment_firebase_version
 
 ```sh
 [bundle exec] fastlane android increment_firebase_version
 ```
 
-Increment the version from the latest relase
+Runs all the tests
+
+Increment the version from the latest firebase release
+
+### android increment_playstore_version
+
+```sh
+[bundle exec] fastlane android increment_playstore_version
+```
+
+Increment the version from the latest playstore release - In progress
 
 ### android beta
 
@@ -45,7 +47,7 @@ Submit a new Beta Build to firebase distribution
 [bundle exec] fastlane android deploy
 ```
 
-Deploy a new version to the Google Play
+Deploy a new version to the Google Play - In progress
 
 ----
 
